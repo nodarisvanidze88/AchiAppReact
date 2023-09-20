@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.checkUser-div{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+}
+.checkUser-form{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+.checkUser-input{
+    width: 50%;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    text-indent: 10px;
+}
