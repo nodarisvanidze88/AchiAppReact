@@ -8,7 +8,7 @@ export default function CheckUser() {
     const [selectdID, setSelectedID] = useState('')
     const navigate = useNavigate()
     useEffect(() => {
-        fetch('http://192.168.100.2:8000/fi/getusers')
+        fetch('http://192.168.100.4:8000/fi/getusers')
             .then(res => res.json())
             .then(data => {
                 setUser(data)
@@ -31,7 +31,8 @@ export default function CheckUser() {
     return (
         <div className="checkUser-div">
             <form onSubmit={checkInput} className="checkUser-form">
-                <input onChange={(e) => setUserValue(e.target.value)} className="checkUser-input"/>
+                <input onChange={(e) => setUserValue(e.target.value)} className="checkUser-input" placeholder="სუპერვაიზერი"/>
+                <input onChange={(e) => setUserValue(e.target.value)} className="checkUser-input" placeholder="სუპერვაიზერი"/>
                 {/* <button type="submit">Enter</button> */}
             </form>
         </div>

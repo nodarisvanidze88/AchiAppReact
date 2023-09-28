@@ -4,6 +4,10 @@ export const COLUMNS = [
         accessor: 'product_ID',
     },
     {
+        Header: 'დასახელება',
+        accessor: 'item_name',
+    },
+    {
         Header: 'რაოდენობა',
         accessor: 'quantity',
     },

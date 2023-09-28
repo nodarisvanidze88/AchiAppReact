@@ -11,7 +11,7 @@ export default function BackForward() {
     const [collectedData, setCollectedData] = useState([])
     const { userValue, selectdID } = useParams()
     useEffect(() => {
-        fetch('http://192.168.100.2:8000/fi/allItems')
+        fetch('http://192.168.100.4:8000/fi/allItems')
             .then(res => res.json())
             .then(res => {
                 setData(res)
@@ -51,6 +51,7 @@ export default function BackForward() {
                 const newItem = {
                     user: selectdID,
                     product_ID: data[currentIndex].product_id,
+                    item_name: data[currentIndex].item_name,
                     quantity: parseInt(inputValue, 10),
                 }
                 setCollectedData((prevData) => [...prevData, newItem])
@@ -59,7 +60,7 @@ export default function BackForward() {
         }
     }
     const handleFinish = () => {
-        fetch("http://192.168.100.2:8000/fi/add_collection_data", {
+        fetch("http://192.168.100.4:8000/fi/add_collection_data", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

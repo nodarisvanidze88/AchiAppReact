@@ -1,31 +1,31 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useTable } from 'react-table'
 import { COLUMNS } from "./BackFowardTableColumns"
-
+import "./BackForward.css"
 
 export function BackForwardTable ({data})  {
 
     const columns = React.useMemo(()=> COLUMNS,[])
-    const tableData = React.useMemo(()=> data,[data])
+    // const tableData = React.useMemo(()=> data,[data])
     
-    console.log(JSON.stringify(tableData))
+
     console.log(JSON.stringify(columns))
-    console.log(tableData.length)
+
     const {getTableProps,
         getTableBodyProps,
         headerGroups,
-        properRow,
-        rows} = useTable({ columns, data: tableData  })
+        prepareRow,
+        rows} = useTable({ columns, data })
     
-        if (!tableData || tableData.length===0){
+        if (!data || data===0){
             return <p>NoData</p>
         }
-
+console.log(rows)
         
     return (
-        <div>
+        <div className="item_table">
             {data.length > 0 ? (
-                <table {...getTableProps()}>
+                <table {...getTableProps()} className="table table-striped table-dark table-hover">
                     <thead>
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -39,9 +39,9 @@ export function BackForwardTable ({data})  {
                     </thead>
                     <tbody {...getTableBodyProps()}>
                         {rows.map((row) => {
-                            properRow(row)
+                            prepareRow(row)
                             return (
-                                <tr {...row.getRowProps()}>
+                                <tr {...row.getRowProps()} className="table-quantity">
                                     {row.cells.map((cell) => (
                                         <td {...cell.getCellProps()}>
                                             {cell.render('Cell')}
