@@ -10,11 +10,14 @@
     justify-content: center;
     align-items: center;
     background-color: #121212;
+    flex-direction: column;
 }
 .checkUser-form{
     width: 80%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .checkUser-input{
     width: 50%;
@@ -22,4 +25,47 @@
     font-size: 20px;
     border-radius: 10px;
     text-indent: 10px;
+    text-align: center;
+}
+.user-input{
+    margin-top: 20px;
+}
+.modal-container{
+    display: flex;
+    flex-direction: column;
+}
+.modal-butons{
+    display: flex;
+    flex-direction: row;
+    align-self: self-end;
+}
+.modal-yes-button {
+    margin-right: 15px;
+}
+.add-modal-container{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+
+}
+.field-containers {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-top: 15px;
+
+}
+.add-customer-modal-butons{
+    display: flex;
+    flex-direction: row;
+    align-self: self-end;
+    margin-top: 20px;
+
+}
+.newCustomerError{
+    color: red;
+    font-size: 10px;
 }

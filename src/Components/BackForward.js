@@ -3,15 +3,20 @@ import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAnglesUp, faCheck,faFloppyDisk} from '@fortawesome/free-solid-svg-icons'
 import {BackForwardTable}from './BackForwardTable'
+import {URLS} from "./urls"
 import './BackForward.css'
 export default function BackForward() {
     const [data, setData] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [inputValue, setInputValue] = useState(0)
     const [collectedData, setCollectedData] = useState([])
-    const { userValue, selectdID } = useParams()
+    const { userValue, selectdID,customerName,customerID  } = useParams()
+    console.log(userValue)
+    console.log(selectdID)
+    console.log(customerName)
+    console.log(customerID)
     useEffect(() => {
-        fetch('http://192.168.100.4:8000/fi/allItems')
+        fetch(URLS[0].All_Items)
             .then(res => res.json())
             .then(res => {
                 setData(res)
@@ -60,7 +65,7 @@ export default function BackForward() {
         }
     }
     const handleFinish = () => {
-        fetch("http://192.168.100.4:8000/fi/add_collection_data", {
+        fetch(URLS[0].Add_collection_data, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -94,6 +99,7 @@ export default function BackForward() {
                         </div>
                         <div className="items">
                             <input type="text" value={userValue} disabled className="user-div" />
+                            <input type="text" value={customerName} disabled className="user-div" />
                             <span className="item_names">შტრიხკოდი: <span className="item_name_content">{data[currentIndex].code}</span></span>
                             <span className="item_names">კოდი: <span className="item_name_content">{data[currentIndex].product_id}</span></span>
                             <span className="item_names">დასახელება: <span className="item_name_content">{data[currentIndex].item_name}</span></span>

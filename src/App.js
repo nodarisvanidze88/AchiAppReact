@@ -2,6 +2,7 @@
 import BackForward from './Components/BackForward';
 import CheckUser from './Components/CheckUser';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AddCustomer from "./Components/AddCustomer"
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<CheckUser />}/>
-      <Route path='/backforward/:userValue/:selectdID' element={<BackForward />} />
+      <Route path='/backforward/:userValue/:selectdID/:customerName/:customerID' element={<BackForward />} />
+      <Route path='/newCustomer' element={<AddCustomer />} />
       </Routes>
     </BrowserRouter>
    </div>

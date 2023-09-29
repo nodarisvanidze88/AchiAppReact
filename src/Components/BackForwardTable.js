@@ -5,9 +5,7 @@ import "./BackForward.css"
 
 export function BackForwardTable ({data})  {
 
-    const columns = React.useMemo(()=> COLUMNS,[])
-    // const tableData = React.useMemo(()=> data,[data])
-    
+    const columns = React.useMemo(()=> COLUMNS,[]) 
 
     console.log(JSON.stringify(columns))
 
@@ -30,7 +28,7 @@ console.log(rows)
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
+                                    <th {...column.getHeaderProps()} className="table-header">
                                         {column.render("Header")}
                                     </th>
                                 ))}
