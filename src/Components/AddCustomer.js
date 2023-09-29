@@ -11,16 +11,27 @@ const customStyles = {
     },
 };
 export default function AddNewCustomerModal({ isOpen, onRequestClose, refresh }) {
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         identification: "",
         customer_name: "",
         customer_address: "",
-    })
+      };
+    const [formData, setFormData] = useState(initialFormData)
     const [formError, setFormError] = useState({
         identification: "",
         customer_name: "",
     })
     const [isValidFiled, setValidField] = useState(true)
+
+    const resetForm = () => {
+        setFormData(initialFormData);
+        setFormError({
+          identification: "",
+          customer_name: "",
+          customer_address: "",
+        });
+        setValidField(true);
+      };
 
     const handeChanges = (e) => {
         const { name, value } = e.target;
@@ -37,8 +48,16 @@ export default function AddNewCustomerModal({ isOpen, onRequestClose, refresh })
             newErrors.identification = "აუცილებელია ორგანიზაციის საიდენტიფიკაციო კოდის შეყვანა"
             isValid = false
         }
+        if (formData.identification.length !== 9 && formData.identification.length !== 11) {
+            newErrors.identification = "საიდენტიფიკაციო კოდი ან 9ნიშნა უნდა იყოს ან 11 ნიშნა"
+            isValid = false
+        }
         if (!formData.customer_name) {
             newErrors.customer_name = "აუცილებელია ორგანიზაციის სახელის შეყვანა"
+            isValid = false
+        }
+        if (!formData.customer_address) {
+            newErrors.customer_address= "აუცილებელია ორგანიზაციის მისამართის შეყვანა"
             isValid = false
         }
         setFormError(newErrors)
@@ -47,7 +66,6 @@ export default function AddNewCustomerModal({ isOpen, onRequestClose, refresh })
     }
 
     const handelSave = async () => {
-        console.log(formData)
         if (handelFormValid()) {
             try {
                 const sendData = await fetch(URLS[0].All_Customers, {
@@ -62,11 +80,12 @@ export default function AddNewCustomerModal({ isOpen, onRequestClose, refresh })
                 }
                 const data = await sendData.json()
                 console.log("Successfully Created New Data: ", data)
+                resetForm()
+                onRequestClose()
             } catch (error) {
                 console.error("Can not Create new data in server", error)
             };
             await refresh()
-            onRequestClose(false)
         }
     }
     return (

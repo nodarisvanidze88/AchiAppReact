@@ -43,6 +43,7 @@ export default function CheckUser() {
     useEffect(() => {
         if (customerID === "New") {
             setModalOpen(true)
+            setCustomerID('')
         }
         if (customer.some((item) => item.id === parseInt(customerID, 10)) &&
             customer.some((item) => item.identification === customerIdentifer) &&
@@ -77,7 +78,10 @@ export default function CheckUser() {
                 }
                 } className="checkUser-input user-input" placeholder="სუპერვაიზერი" />
             </form>
-            <AddNewCustomerModal isOpen={isModalOpen} onRequestClose={() => setModalOpen(false)} refresh={GetAllUsers} />
+            <AddNewCustomerModal 
+            isOpen={isModalOpen} 
+            onRequestClose={() => setModalOpen(false)} 
+            refresh={GetAllUsers} />
         </div>
     )
 }

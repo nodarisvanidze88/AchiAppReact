@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAnglesUp, faCheck,faFloppyDisk} from '@fortawesome/free-solid-svg-icons'
 import {BackForwardTable}from './BackForwardTable'
@@ -11,10 +11,7 @@ export default function BackForward() {
     const [inputValue, setInputValue] = useState(0)
     const [collectedData, setCollectedData] = useState([])
     const { userValue, selectdID,customerName,customerID  } = useParams()
-    console.log(userValue)
-    console.log(selectdID)
-    console.log(customerName)
-    console.log(customerID)
+    const navigate = useNavigate();
     useEffect(() => {
         fetch(URLS[0].All_Items)
             .then(res => res.json())
@@ -55,6 +52,7 @@ export default function BackForward() {
             } else {
                 const newItem = {
                     user: selectdID,
+                    customer_info: parseInt(customerID,10),
                     product_ID: data[currentIndex].product_id,
                     item_name: data[currentIndex].item_name,
                     quantity: parseInt(inputValue, 10),
@@ -65,6 +63,7 @@ export default function BackForward() {
         }
     }
     const handleFinish = () => {
+        console.log(collectedData)
         fetch(URLS[0].Add_collection_data, {
             method: 'POST',
             headers: {
@@ -81,12 +80,15 @@ export default function BackForward() {
                 }
             })
     }
+    
     const getQuantityForCurrentItem = () => {
         const currentItem = collectedData.find(item => item.product_ID === data[currentIndex].product_id)
         return currentItem ? currentItem.quantity : 0
     }
+    const backTocustomer = ()=> {navigate(`/`)}
     return (
         <div className="container-content">
+            <button onClick={backTocustomer}>Back</button>
             {data.length > 0 && (
                 <div className="items-images-buttons">
                     <div className="image-item">
