@@ -1,115 +1,61 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-.container-content{
-    color: white;
-    width: 100%;
+.container-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100vw;
     background-color: #121212;
-    flex-direction: column;
 }
 
-.items-images-buttons{
-    display: flex;
-    justify-content: center;
+.mainSwiper {
     width: 80%;
-}
-
-
-
-.image-item{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-.image-div{
-    width: 45%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-}
-.items{
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-}
-.div-buttons{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    width: 10%;
-}
-.user-div{
+    max-width: 600px;
     margin-bottom: 20px;
-    height: 25px;
-    font-size: 18px;
-    text-align: center;
-}
-.button-Back,.button-next{
-    width: 80%;
-    height: 60px;
-    font-size: 25px;
-}
-.button-Back {
-    margin-top: 100px;
-}
-.button-next {
-    margin-bottom: 100px;
-}
-.produqct-qt {
-    display: flex;
-    margin-top: 20px;
-    flex-direction: column;
-    width: 80%;
-    align-self: center;
-}
-.item_names{
-    color: rgb(139, 139, 170);
-    font-size: 12px;
-}
-.item_name_content{
-    color: white;
-    font-size: 16px;
-}
-.quantity-input{
-    width: 50%;
-    display: flex;
-    align-self: center;
-    text-align: center;
-    height: 25px;
-    font-size: 20px;
-    font-weight: bold;
 }
 
-.save-button,.finish-button{
-    width: 20%;
-    height: 30px;
-    margin: auto;
-    margin-top: 20px;
-}
-.item_table{
+.thumbSwiper {
     width: 80%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+    max-width: 600px;
 }
 
-.table-quantity{
+.card {
     text-align: center;
+    padding: 10px;
 }
-.table-header{
-    text-align: center;
+
+.card-image {
+    width: 100%;
+    border-radius: 8px;
 }
-/* @media only screen and (min-width: 400px) {
-    .image-item{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-} */
+
+.thumbnail-image {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.input-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.quantity-input {
+    padding: 8px;
+    width: 60px;
+}
+
+.save-button,
+.finish-button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: black;
+}
