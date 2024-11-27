@@ -77,11 +77,14 @@ export default function CheckUser() {
                     }
                 }
                 } className="checkUser-input user-input" placeholder="სუპერვაიზერი" />
+                <button onClick={()=>{
+                    navigate("/orders")
+                }}>შეკვეთები</button>
             </form>
-            <AddNewCustomerModal 
-            isOpen={isModalOpen} 
-            onRequestClose={() => setModalOpen(false)} 
-            refresh={GetAllUsers} />
+            <AddNewCustomerModal
+                isOpen={isModalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                refresh={GetAllUsers} />
         </div>
     )
 }
