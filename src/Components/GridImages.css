@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.cards{
+    background-color: black;
+}
+.grid-container{
+    background-color: black;
+}

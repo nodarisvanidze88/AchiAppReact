@@ -3,6 +3,7 @@ import BackForward from './Components/BackForward';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddCustomer from './Components/AddCustomer';
 import { UsersOrders } from './Components/UsersOrders';
+import GridImages from './Components/GridImages';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" element={<BackForward />} />
                     <Route path="/newCustomer" element={<AddCustomer />} />
                     <Route path="/orders" element={<UsersOrders />} />
+                    <Route path='/grid' element={<GridImages />}/>
                 </Routes>
             </BrowserRouter>
         </div>
