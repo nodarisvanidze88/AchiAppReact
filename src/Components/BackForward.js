@@ -14,7 +14,7 @@ export default function BackForward() {
     const [data, setData] = useState([]);
     const [inputValue, setInputValue] = useState(0);
     const [collectedData, setCollectedData] = useState([]);
-    const [thumbsSwiper, setThumbsSwiper] = useState(null); // Thumbnail swiper instance
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { userValue, selectdID, customerName, customerID } = useParams();
     const navigate = useNavigate();
 
@@ -25,7 +25,6 @@ export default function BackForward() {
                 setData(res);
             });
     }, []);
-
     const handleInputChanges = (e) => {
         setInputValue(e.target.value);
     };
@@ -99,23 +98,20 @@ export default function BackForward() {
                                 <div className="card">
                                     <img
                                         src={item.image_urel}
-                                        alt={item.item_name}
+                                        alt={item.product_id}
                                         className="card-image"
                                     />
                                     <div className="item-details">
                                         <span className="item_names">
-                                            Name: <span>{item.item_name}</span>
+                                            <span>ID: {item.product_id}</span>
                                         </span>
                                         <span className="item_names">
-                                            Category:{' '}
-                                            <span>{item.category_name}</span>
+                                            <span>Stock: {item.qty_in_wh}</span>
                                         </span>
                                         <span className="item_names">
-                                            Stock: <span>{item.qty_in_wh}</span>
-                                        </span>
-                                        <span className="item_names">
-                                            Price:{' '}
-                                            <span>{item.price} ლარი</span>
+                                            <span>
+                                                Price: {item.price} ლარი
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
@@ -126,7 +122,18 @@ export default function BackForward() {
                         onSwiper={setThumbsSwiper}
                         loop={true}
                         spaceBetween={10}
-                        slidesPerView={4}
+                        slidesPerView={6} /* Default value */
+                        breakpoints={{
+                            200: {
+                                slidesPerView: 2, // Show 2 slides on very small screens
+                            },
+                            600: {
+                                slidesPerView: 4, // Show 4 slides on small screens
+                            },
+                            800: {
+                                slidesPerView: 6, // Show 6 slides on medium to large screens
+                            },
+                        }}
                         freeMode={true}
                         watchSlidesProgress={true}
                         modules={[FreeMode, Navigation, Thumbs]}
@@ -136,7 +143,7 @@ export default function BackForward() {
                             <SwiperSlide key={index}>
                                 <img
                                     src={item.image_urel}
-                                    alt={item.item_name}
+                                    alt={item.product_id}
                                     className="thumbnail-image"
                                 />
                             </SwiperSlide>
