@@ -1,0 +1,9 @@
+.bar-menu {
+    flex: 0 0 auto;
+    border-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,25 +1,32 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './GridImages.css';
 import { URLS } from './urls';
+import CategoryDropdown from './CategoryDropdown';
+import { GetData } from './funcionality/getcategories';
 
 export default function GridImages() {
     const [data, setData] = useState([]); // Store fetched data
     const [page, setPage] = useState(1); // Current page number
     const [isLoading, setIsLoading] = useState(false); // Loading state
     const [hasMore, setHasMore] = useState(true); // Flag to track if there are more items to load
-    const fetchData = async () => {
-        if (isLoading || !hasMore) return; // Prevent multiple calls or fetch when no more data
+    const [currentCategory, setCurrentCategory] = useState(-1);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const fetchData = async (reset = false) => {
         setIsLoading(true);
-
         try {
-            const response = await fetch(`${URLS[0].All_Items}?page=${page}`);
-            const result = await response.json();
-
-            if (result.results) {
-                setData((prevData) => [...prevData, ...result.results]); // Append new data to existing
-                setHasMore(Boolean(result.next)); // If `next` is null, there are no more items
+            const categoryParam =
+                currentCategory !== -1 ? `&category_id=${currentCategory}` : '';
+            const url = `${URLS[0].All_Items}?page=${page}${categoryParam}`;
+            const result = await GetData(url);
+            if (result && result.results) {
+                setData((prevData) =>
+                    reset ? result.results : [...prevData, ...result.results]
+                );
+                console.log(data);
+                setHasMore(Boolean(result.next));
             } else {
-                setHasMore(false); // No valid data structure
+                setHasMore(false);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -28,50 +35,75 @@ export default function GridImages() {
         }
     };
 
+    // Reset data and fetch when category changes
+    useEffect(() => {
+        setData([]);
+        fetchData(true);
+    }, [currentCategory]);
+
     // Fetch data when the page changes
     useEffect(() => {
-        if (!isLoading && hasMore) {
-            fetchData();
-        }
+        fetchData();
     }, [page]);
 
-    // Handle scroll event
-    const handleScroll = useCallback(() => {
-        if (isLoading || !hasMore) return;
+    const handleScroll = useCallback(
+        (e) => {
+            const { scrollTop, scrollHeight, clientHeight } = e.target;
+            // if (isLoading || !hasMore) return;
 
-        const { scrollTop, scrollHeight, clientHeight } =
-            document.documentElement;
-
-        if (scrollTop + clientHeight >= scrollHeight - 5) {
-            setPage((prevPage) => prevPage + 1); // Load the next page
-        }
-    }, [isLoading, hasMore]);
-
-    // Attach scroll event listener with debounce
-    useEffect(() => {
-        const debouncedScroll = () => {
-            setTimeout(() => {
-                handleScroll();
-            }, 300); // Debounce time
-        };
-
-        window.addEventListener('scroll', debouncedScroll);
-        return () => window.removeEventListener('scroll', debouncedScroll); // Clean up
-    }, [handleScroll]);
+            if (scrollTop + clientHeight >= scrollHeight - 5) {
+                setPage((prevPage) => prevPage + 1); // Load the next page
+            }
+        },
+        [isLoading, hasMore]
+    );
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+    const handleCategoryChange = (category) => {
+        setCurrentCategory(parseInt(category, 10));
+        setPage(1);
+        setIsOpen(false);
+    };
 
     return (
-        <div className="grid-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-            {data.map((item, index) => (
-                <div key={index} className="cards">
-                    <img
-                        className="w-full h-auto object-cover rounded-xl"
-                        src={item.image_urel}
-                        alt={item.product_id}
+        <div className="main-container">
+            <div className="burger-menu">
+                <button className="burger-button" onClick={toggleDropdown}>
+                    ☰
+                </button>
+                {isOpen && (
+                    <CategoryDropdown
+                        onCategoryChange={handleCategoryChange}
+                        currentCategory={currentCategory}
                     />
-                </div>
-            ))}
-            {isLoading && <p>Loading...</p>} {/* Show loading indicator */}
-            {!hasMore && <p>No more items to load.</p>} {/* Show end message */}
+                )}
+            </div>
+            <div
+                className="grid-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2"
+                onScroll={handleScroll}
+            >
+                {data.map((item, index) => (
+                    <div key={index} className="cards">
+                        <img
+                            className="w-full h-auto object-cover rounded-xl"
+                            src={item.image_urel}
+                            alt={item.product_id}
+                        />
+                    </div>
+                ))}
+                {isLoading && (
+                    <div className="loading-status">
+                        <p>Loading...</p>
+                    </div>
+                )}{' '}
+                {!hasMore && (
+                    <div className="loading-status">
+                        <p>No more items to load.</p>
+                    </div>
+                )}{' '}
+                {/* Show end message */}
+            </div>
         </div>
     );
 }
