@@ -3,7 +3,7 @@ import './GridImages.css';
 import { URLS } from './urls';
 import CategoryDropdown from './CategoryDropdown';
 import { GetData } from './funcionality/getcategories';
-
+import DetailModal from './detailModal';
 export default function GridImages() {
     const [data, setData] = useState([]); // Store fetched data
     const [page, setPage] = useState(1); // Current page number
@@ -11,7 +11,9 @@ export default function GridImages() {
     const [hasMore, setHasMore] = useState(true); // Flag to track if there are more items to load
     const [currentCategory, setCurrentCategory] = useState(-1);
     const [isOpen, setIsOpen] = useState(false);
-
+    const [detailsOpen, setDetailsOpen] = useState(false);
+    const [details, setDetails] = useState([]);
+    const [selectedItem, setSelectedItem] = useState('');
     const fetchData = async (reset = false) => {
         setIsLoading(true);
         try {
@@ -23,7 +25,6 @@ export default function GridImages() {
                 setData((prevData) =>
                     reset ? result.results : [...prevData, ...result.results]
                 );
-                console.log(data);
                 setHasMore(Boolean(result.next));
             } else {
                 setHasMore(false);
@@ -60,10 +61,19 @@ export default function GridImages() {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+    const toggleModal = () => {
+        setDetailsOpen(!detailsOpen);
+    };
+    const handleDetails = (item) => {
+        setDetails(item);
+    };
     const handleCategoryChange = (category) => {
         setCurrentCategory(parseInt(category, 10));
         setPage(1);
         setIsOpen(false);
+    };
+    const handleSelectedItem = (item) => {
+        setSelectedItem(item);
     };
 
     return (
@@ -89,6 +99,11 @@ export default function GridImages() {
                             className="w-full h-auto object-cover rounded-xl"
                             src={item.image_urel}
                             alt={item.product_id}
+                            onClick={() => {
+                                handleDetails(item);
+                                handleSelectedItem(item.id);
+                                toggleModal();
+                            }}
                         />
                     </div>
                 ))}
@@ -102,8 +117,18 @@ export default function GridImages() {
                         <p>No more items to load.</p>
                     </div>
                 )}{' '}
-                {/* Show end message */}
             </div>
+            <DetailModal
+                isOpen={detailsOpen}
+                onRequestClose={() => {
+                    setDetailsOpen(false);
+                    setDetails([]);
+                }}
+                details={details}
+                setdetail={setDetails}
+                selected={selectedItem}
+                selectfunc={setSelectedItem}
+            />
         </div>
     );
 }
