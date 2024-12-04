@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { URLS } from './urls';
 import { GetData } from './funcionality/getcategories';
-
+import './detailModal.css'
 export default function DetailModal({
     isOpen,
     onRequestClose,
@@ -43,20 +43,22 @@ export default function DetailModal({
         }
     }, [isOpen, ids]);
 
-    const handleInputChange = (event) => {
-        const value = event.target.value;
-        setInputValue(value);
+    
 
-        // Filter IDs based on input
-        if (value) {
-            const filtered = ids.filter((id) => id.toString().includes(value));
-            setFilteredIds(filtered);
-            setIsDropdownOpen(true);
-        } else {
-            setFilteredIds(ids);
-            setIsDropdownOpen(false);
-        }
-    };
+const handleInputChange = (event) => {
+    const value = event.target.value;
+    setInputValue(value);
+
+    // Filter IDs based on input
+    if (value) {
+        const filtered = ids.filter((id) => id.toString().includes(value));
+        setFilteredIds(filtered);
+        setIsDropdownOpen(filtered.length > 0); // Open dropdown only if there are filtered items
+    } else {
+        setFilteredIds([]);
+        setIsDropdownOpen(false);
+    }
+};
 
     const handleSelect = async (id) => {
         setInputValue(id.toString());
@@ -90,12 +92,16 @@ export default function DetailModal({
                     transform: 'translate(-50%, -50%)',
                     width: '80vw',
                     height: '80vh',
+                    padding: 0, // Remove extra padding
+                    overflow: 'hidden', // Disable scroll
+
                 },
             }}
         >
             <div className="detail-modal-container">
                 <div className="header-input">
                     <input
+                        className='search-input'
                         type="text"
                         value={inputValue}
                         onChange={handleInputChange}
@@ -117,7 +123,7 @@ export default function DetailModal({
                 </div>
                 <div className="detail-body-container">
                     <div className="image-container">
-                        <img src={details.image_urel} alt={details.id} />
+                        <img className='image-item' src={details.image_urel} alt={details.id} />
                     </div>
                     <div className="detail-container">
                         <p>ID: {details.id}</p>
