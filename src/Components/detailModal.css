@@ -8,7 +8,7 @@
 
 .header-input {
     width: 80%;
-    height: 40px;
+    height: 50px;
     border: solid grey;
     border-radius: 10px;
     border-width: 2px;
@@ -21,6 +21,7 @@
     margin: 7px 10px auto 10px;
     padding-left: 10px;
     border-radius: 10px;
+    height: 35px;
     text-align: left;
     font-weight: bold;
 }
@@ -39,15 +40,42 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: wheat;
+    color: rgb(255, 255, 255);
 }
 .description-category {
     margin-top: 10px;
     min-height: 40px;
-    background-color: aqua;
+    background-color: rgb(162, 235, 235);
     border-radius: 10px;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.detail-body-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+.image-detail-container {
+    margin-top: 10px;
+}
+.my-container {
+    display: flex;
+    justify-content: center;
+    object-fit: contain;
+    height: 100%;
+}
+/* .detail-container {
+    width: 30%;
+} */
+.image-item {
+    border-radius: 10px;
+    max-height: 85%;
+}
+.detail-items {
+    margin-top: 10px;
+
+    text-align: center;
+    padding: auto 2px auto 2px;
 }

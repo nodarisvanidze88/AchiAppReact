@@ -82,17 +82,17 @@ export default function DetailModal({
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 content: {
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
                     border: null,
-                    top: '50%',
-                    left: '50%',
-                    right: 'auto',
-                    bottom: 'auto',
-                    marginRight: '-50%',
-                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '10px',
+                    // display: 'block',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
                     width: '80vw',
                     height: '80vh',
-                    padding: 0, // Remove extra padding
+                    padding: 0,
+                    margin: 'auto',
+                    overflow: 'contain',
                 },
             }}
         >
@@ -119,11 +119,7 @@ export default function DetailModal({
                         </div>
                     )}
                 </div>
-                <div
-                    className="detail-body-container 
-                grid sm:grid-cols-1 
-                md:grid-cols-2 lg:grid-cols-2 gap-2"
-                >
+                <div className="detail-body-container">
                     <div className="description-category">
                         <p>
                             <b>დასახელება</b>: {details.item_name}
@@ -134,31 +130,36 @@ export default function DetailModal({
                             <b>კატეგორია</b>: {details.category_name}
                         </p>
                     </div>
-                    <div className="image-container">
-                        <img
-                            className="image-item"
-                            src={details.image_urel}
-                            alt={details.id}
-                        />
-                    </div>
-                    <div className="detail-container">
-                        <div>
-                            <span>ID:</span>
+                    <div className="image-detail-container grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
+                        <div className="my-container">
+                            <img
+                                className="image-item"
+                                src={details.image_urel}
+                                alt={details.id}
+                            />
                         </div>
-                        <div>
-                            <span>{details.id}</span>
-                        </div>
-                        <div>
-                            <span>რაოდენობა:</span>
-                        </div>
-                        <div>
-                            <span>{details.qty_in_wh}</span>
-                        </div>
-                        <div>
-                            <span>ფასი:</span>
-                        </div>
-                        <div>
-                            <span>{details.price}</span>
+                        <div className="detail-container text-2xl">
+                            <div className="detail-items">
+                                <span>
+                                    ID:
+                                    <b> {details.id}</b>
+                                </span>
+                            </div>
+
+                            <div className="detail-items">
+                                <span>
+                                    რაოდენობა:
+                                    <b>
+                                        {' '}
+                                        {details.qty_in_wh} {details.dimention}
+                                    </b>
+                                </span>
+                            </div>
+                            <div className="detail-items">
+                                <span>
+                                    ფასი:<b> {details.price} ლ</b>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
