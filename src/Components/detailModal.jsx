@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { URLS } from './urls';
 import { GetData } from './funcionality/getcategories';
-import './detailModal.css'
+import './detailModal.css';
 export default function DetailModal({
     isOpen,
     onRequestClose,
@@ -43,22 +43,20 @@ export default function DetailModal({
         }
     }, [isOpen, ids]);
 
-    
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setInputValue(value);
 
-const handleInputChange = (event) => {
-    const value = event.target.value;
-    setInputValue(value);
-
-    // Filter IDs based on input
-    if (value) {
-        const filtered = ids.filter((id) => id.toString().includes(value));
-        setFilteredIds(filtered);
-        setIsDropdownOpen(filtered.length > 0); // Open dropdown only if there are filtered items
-    } else {
-        setFilteredIds([]);
-        setIsDropdownOpen(false);
-    }
-};
+        // Filter IDs based on input
+        if (value) {
+            const filtered = ids.filter((id) => id.toString().includes(value));
+            setFilteredIds(filtered);
+            setIsDropdownOpen(filtered.length > 0); // Open dropdown only if there are filtered items
+        } else {
+            setFilteredIds([]);
+            setIsDropdownOpen(false);
+        }
+    };
 
     const handleSelect = async (id) => {
         setInputValue(id.toString());
@@ -84,6 +82,8 @@ const handleInputChange = (event) => {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 content: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    border: null,
                     top: '50%',
                     left: '50%',
                     right: 'auto',
@@ -93,15 +93,13 @@ const handleInputChange = (event) => {
                     width: '80vw',
                     height: '80vh',
                     padding: 0, // Remove extra padding
-                    overflow: 'hidden', // Disable scroll
-
                 },
             }}
         >
             <div className="detail-modal-container">
                 <div className="header-input">
                     <input
-                        className='search-input'
+                        className="search-input"
                         type="text"
                         value={inputValue}
                         onChange={handleInputChange}
@@ -121,16 +119,47 @@ const handleInputChange = (event) => {
                         </div>
                     )}
                 </div>
-                <div className="detail-body-container">
+                <div
+                    className="detail-body-container 
+                grid sm:grid-cols-1 
+                md:grid-cols-2 lg:grid-cols-2 gap-2"
+                >
+                    <div className="description-category">
+                        <p>
+                            <b>დასახელება</b>: {details.item_name}
+                        </p>
+                    </div>
+                    <div className="description-category">
+                        <p>
+                            <b>კატეგორია</b>: {details.category_name}
+                        </p>
+                    </div>
                     <div className="image-container">
-                        <img className='image-item' src={details.image_urel} alt={details.id} />
+                        <img
+                            className="image-item"
+                            src={details.image_urel}
+                            alt={details.id}
+                        />
                     </div>
                     <div className="detail-container">
-                        <p>ID: {details.id}</p>
-                        <p>დასახელება: {details.item_name}</p>
-                        <p>კატეგორია: {details.category_name}</p>
-                        <p>რაოდენობა: {details.qty_in_wh}</p>
-                        <p>ფასი: {details.price}</p>
+                        <div>
+                            <span>ID:</span>
+                        </div>
+                        <div>
+                            <span>{details.id}</span>
+                        </div>
+                        <div>
+                            <span>რაოდენობა:</span>
+                        </div>
+                        <div>
+                            <span>{details.qty_in_wh}</span>
+                        </div>
+                        <div>
+                            <span>ფასი:</span>
+                        </div>
+                        <div>
+                            <span>{details.price}</span>
+                        </div>
                     </div>
                 </div>
             </div>
