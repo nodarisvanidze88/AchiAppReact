@@ -45,7 +45,8 @@
 .description-category {
     margin-top: 10px;
     min-height: 40px;
-    background-color: rgb(162, 235, 235);
+    background-color: rgb(64, 20, 184);
+    color: white;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -74,13 +75,13 @@
     max-height: 85%;
 }
 .detail-items {
-    margin-top: 10px;
+    margin-top: 20px;
 
     text-align: center;
     padding: auto 2px auto 2px;
 }
 .choose-quantity {
-    margin-top: 20px;
+    margin-top: 5%;
     display: flex;
     gap: 5px;
 }
@@ -103,4 +104,13 @@
     padding-left: 15px;
     text-align: center;
     font-weight: bold;
+}
+.save-btn-div {
+    margin-top: 10px;
+}
+.save-btn {
+    background-color: rgb(64, 20, 184);
+    padding: 10px;
+    border-radius: 5px;
+    width: 210px;
 }

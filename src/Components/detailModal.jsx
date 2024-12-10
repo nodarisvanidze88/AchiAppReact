@@ -15,6 +15,7 @@ export default function DetailModal({
     const [filteredIds, setFilteredIds] = useState([]); // For filtering IDs
     const [inputValue, setInputValue] = useState(''); // Input value
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown visibility
+    const [quantity, setQuantity] = useState(0);
 
     useEffect(() => {
         const fetchIds = async () => {
@@ -40,6 +41,7 @@ export default function DetailModal({
             setInputValue('');
             setFilteredIds(ids);
             setIsDropdownOpen(false);
+            setQuantity(0);
         }
     }, [isOpen, ids]);
 
@@ -69,6 +71,20 @@ export default function DetailModal({
             setdetail(data); // Call the parent function to handle new data
         } catch (error) {
             console.error('Error fetching item details:', error);
+        }
+    };
+    const incrementQuantity = () => {
+        setQuantity((prev) => Math.min(prev + 1, details.qty_in_wh));
+    };
+
+    const decrementQuantity = () => {
+        setQuantity((prev) => Math.max(prev - 1, 0));
+    };
+
+    const handleQuantityChange = (event) => {
+        const value = parseInt(event.target.value, 10);
+        if (!isNaN(value)) {
+            setQuantity(Math.min(Math.max(value, 0), details.qty_in_wh));
         }
     };
 
@@ -157,12 +173,27 @@ export default function DetailModal({
                                 </span>
                             </div>
                             <div className="choose-quantity">
-                                <button className="minus-btn">-</button>
+                                <button
+                                    className="minus-btn"
+                                    onClick={decrementQuantity}
+                                >
+                                    -
+                                </button>
                                 <input
                                     type="number"
                                     className="quantity-input"
+                                    value={quantity}
+                                    onChange={handleQuantityChange}
                                 />
-                                <button className="plus-btn">+</button>
+                                <button
+                                    className="plus-btn"
+                                    onClick={incrementQuantity}
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <div className="save-btn-div">
+                                <button className="save-btn">შენახვა</button>
                             </div>
                         </div>
                     </div>
