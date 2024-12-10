@@ -85,9 +85,6 @@ export default function DetailModal({
                     backgroundColor: 'rgba(0, 0, 0, 0.9)',
                     border: null,
                     borderRadius: '10px',
-                    // display: 'block',
-                    // justifyContent: 'center',
-                    // alignItems: 'center',
                     width: '80vw',
                     height: '80vh',
                     padding: 0,
@@ -145,7 +142,6 @@ export default function DetailModal({
                                     <b> {details.id}</b>
                                 </span>
                             </div>
-
                             <div className="detail-items">
                                 <span>
                                     რაოდენობა:
@@ -159,6 +155,14 @@ export default function DetailModal({
                                 <span>
                                     ფასი:<b> {details.price} ლ</b>
                                 </span>
+                            </div>
+                            <div className="choose-quantity">
+                                <button className="minus-btn">-</button>
+                                <input
+                                    type="number"
+                                    className="quantity-input"
+                                />
+                                <button className="plus-btn">+</button>
                             </div>
                         </div>
                     </div>
