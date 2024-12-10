@@ -30,6 +30,7 @@
     padding: 10px;
     background-color: #121212;
     min-width: 70px;
+    justify-content: space-between;
 }
 .burger-button {
     background: none;
@@ -38,6 +39,8 @@
     cursor: pointer;
     color: blueviolet;
     padding-left: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .loading-status {
     color: white;

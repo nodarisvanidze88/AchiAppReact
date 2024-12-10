@@ -4,6 +4,8 @@ import { URLS } from './urls';
 import CategoryDropdown from './CategoryDropdown';
 import { GetData } from './funcionality/getcategories';
 import DetailModal from './detailModal';
+import { IoMdExit } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 export default function GridImages() {
     const [data, setData] = useState([]); // Store fetched data
     const [page, setPage] = useState(1); // Current page number
@@ -14,6 +16,7 @@ export default function GridImages() {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [details, setDetails] = useState([]);
     const [selectedItem, setSelectedItem] = useState('');
+    const navigate = useNavigate();
     const fetchData = async (reset = false) => {
         setIsLoading(true);
         try {
@@ -75,7 +78,9 @@ export default function GridImages() {
     const handleSelectedItem = (item) => {
         setSelectedItem(item);
     };
-
+    const handleReturnBack = () => {
+        navigate('/');
+    };
     return (
         <div className="main-container">
             <div className="burger-menu">
@@ -88,6 +93,9 @@ export default function GridImages() {
                         currentCategory={currentCategory}
                     />
                 )}
+                <button className="burger-button" onClick={handleReturnBack}>
+                    <IoMdExit />
+                </button>
             </div>
             <div
                 className="grid-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2"
