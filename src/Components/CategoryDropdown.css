@@ -5,7 +5,7 @@
     font-size: 20px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Use full width by default */
+    width: 50%; /* Use full width by default */
     max-width: 400px; /* Limit the maximum width */
     margin: 0 auto; /* Center align for better aesthetics */
     padding: 0.5rem; /* Add some padding */
