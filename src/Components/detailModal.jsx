@@ -105,7 +105,7 @@ export default function DetailModal({
                     height: '80vh',
                     padding: 0,
                     margin: 'auto',
-                    overflow: 'contain',
+                    // overflow: 'contain',
                 },
             }}
         >
