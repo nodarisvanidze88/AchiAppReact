@@ -93,7 +93,7 @@ export default function GridImages() {
                         currentCategory={currentCategory}
                     />
                 )}
-                <button className="burger-button" onClick={handleReturnBack}>
+                <button className="exit-button" onClick={handleReturnBack}>
                     <IoMdExit />
                 </button>
             </div>
