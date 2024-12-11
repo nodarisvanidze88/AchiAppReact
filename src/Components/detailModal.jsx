@@ -227,7 +227,7 @@ export default function DetailModal({
                                     className="save-btn"
                                     onClick={handelSave}
                                 >
-                                    შენახვა
+                                    დამატება
                                 </button>
                                 {requestError && (
                                     <div>
