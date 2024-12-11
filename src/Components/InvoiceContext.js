@@ -4,9 +4,10 @@ export const InvoiceContext = createContext();
 export const InvoiceProvider = ({ children }) => {
     const [invoiceDate, setInvoiceDate] = useState({
         invoiceNumber: '',
-        customeri_id: '',
+        customer_id: '',
         identification: '',
         customer: '',
+        user_id: '',
         user: '',
     });
     return (

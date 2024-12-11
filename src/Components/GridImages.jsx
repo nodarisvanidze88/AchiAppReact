@@ -148,6 +148,10 @@ export default function GridImages() {
                 setdetail={setDetails}
                 selected={selectedItem}
                 selectfunc={setSelectedItem}
+                invoice={invoiceDate.invoiceNumber}
+                user_id={invoiceDate.user_id}
+                user={invoiceDate.user}
+                customer_id={invoiceDate.customer_id}
             />
         </div>
     );

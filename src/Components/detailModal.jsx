@@ -10,14 +10,25 @@ export default function DetailModal({
     setdetail,
     selected,
     selectfunc,
+    invoice,
+    user_id,
+    customer_id,
 }) {
     const [ids, setIds] = useState([]);
     const [filteredIds, setFilteredIds] = useState([]); // For filtering IDs
     const [inputValue, setInputValue] = useState(''); // Input value
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown visibility
     const [quantity, setQuantity] = useState(0);
-
+    const [requestError, setError] = useState('');
+    const selectedItem = {
+        invoice: invoice,
+        user: user_id,
+        customer_info: customer_id,
+        product_ID: details.id,
+        quantity: quantity,
+    };
     useEffect(() => {
+        setError('');
         const fetchIds = async () => {
             try {
                 const data = await GetData(URLS[0].ids); // Await the Promise
@@ -87,7 +98,26 @@ export default function DetailModal({
             setQuantity(Math.min(Math.max(value, 0), details.qty_in_wh));
         }
     };
+    const handelSave = async () => {
+        setError('');
+        try {
+            const sendData = await fetch(URLS[0].Add_collection_data, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ collected_data: selectedItem }),
+            });
+            if (!sendData.ok) {
+                throw new Error('Server error');
+            }
 
+            onRequestClose();
+        } catch (error) {
+            setError('Out of stock');
+            console.error('Can not Create new data in server', error);
+        }
+    };
     return (
         <Modal
             isOpen={isOpen}
@@ -193,7 +223,17 @@ export default function DetailModal({
                                 </button>
                             </div>
                             <div className="save-btn-div">
-                                <button className="save-btn">შენახვა</button>
+                                <button
+                                    className="save-btn"
+                                    onClick={handelSave}
+                                >
+                                    შენახვა
+                                </button>
+                                {requestError && (
+                                    <div>
+                                        <span>{requestError}</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

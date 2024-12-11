@@ -67,9 +67,10 @@ export default function CheckUser() {
             const invoiceNumber = generateInvoiceNumber();
             setInvoiceDate({
                 invoiceNumber,
-                customeri_id: customerID,
+                customer_id: customerID,
                 identification: customerIdentifer,
                 customer: customerName,
+                user_id: selectdID,
                 user: userValue,
             });
             navigate(`/grid`);
@@ -85,6 +86,7 @@ export default function CheckUser() {
         customerName,
         setInvoiceDate,
     ]);
+    console.log(customerID);
     return (
         <div className="checkUser-div">
             <form className="checkUser-form">
