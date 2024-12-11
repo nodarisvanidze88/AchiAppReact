@@ -97,10 +97,7 @@ export default function GridImages() {
                 )}
                 {!isOpen && (
                     <>
-                        <div className="customer-info grid sm:grid-cols-1 lg:grid-cols-2 gap-2">
-                            <div>
-                                <span>{invoiceDate.identification}</span>
-                            </div>
+                        <div className="customer-info">
                             <div>
                                 <span>{invoiceDate.customer}</span>
                             </div>
