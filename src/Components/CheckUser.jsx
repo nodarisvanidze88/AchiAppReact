@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './CheckUser.css';
 import { URLS } from './urls';
 import AddNewCustomerModal from './AddCustomer';
-
+import { useContext } from 'react';
+import { InvoiceContext } from './InvoiceContext';
 export default function CheckUser() {
     const [user, setUser] = useState('');
     const [isModalOpen, setModalOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function CheckUser() {
     const [customerIdentifer, setCustomerIdentifer] = useState('');
     const [userValue, setUserValue] = useState('');
     const [selectdID, setSelectedID] = useState('');
+    const { setInvoiceDate } = useContext(InvoiceContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,7 +40,17 @@ export default function CheckUser() {
                 setCustomer(customerData.results);
             });
     };
-
+    const generateInvoiceNumber = () => {
+        const now = new Date();
+        return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(
+            2,
+            '0'
+        )}${String(now.getDate()).padStart(2, '0')}${String(
+            now.getHours()
+        ).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(
+            now.getSeconds()
+        ).padStart(2, '0')}${String(now.getMilliseconds()).padStart(3, '0')}`;
+    };
     useEffect(() => {
         if (customerID === 'New') {
             setModalOpen(true);
@@ -52,6 +64,14 @@ export default function CheckUser() {
             user.some((item) => item.user === userValue) &&
             selectdID !== ''
         ) {
+            const invoiceNumber = generateInvoiceNumber();
+            setInvoiceDate({
+                invoiceNumber,
+                customeri_id: customerID,
+                identification: customerIdentifer,
+                customer: customerName,
+                user: userValue,
+            });
             navigate(`/grid`);
         }
     }, [
@@ -63,9 +83,8 @@ export default function CheckUser() {
         customerIdentifer,
         user,
         customerName,
+        setInvoiceDate,
     ]);
-
-    console.log(user);
     return (
         <div className="checkUser-div">
             <form className="checkUser-form">

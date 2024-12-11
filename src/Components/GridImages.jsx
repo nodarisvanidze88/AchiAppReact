@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import './GridImages.css';
 import { URLS } from './urls';
 import CategoryDropdown from './CategoryDropdown';
@@ -6,6 +6,7 @@ import { GetData } from './funcionality/getcategories';
 import DetailModal from './detailModal';
 import { IoMdExit } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { InvoiceContext } from './InvoiceContext';
 export default function GridImages() {
     const [data, setData] = useState([]); // Store fetched data
     const [page, setPage] = useState(1); // Current page number
@@ -16,6 +17,7 @@ export default function GridImages() {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [details, setDetails] = useState([]);
     const [selectedItem, setSelectedItem] = useState('');
+    const { invoiceDate } = useContext(InvoiceContext);
     const navigate = useNavigate();
     const fetchData = async (reset = false) => {
         setIsLoading(true);
@@ -93,6 +95,19 @@ export default function GridImages() {
                         currentCategory={currentCategory}
                     />
                 )}
+                {!isOpen && (
+                    <>
+                        <div className="customer-info grid sm:grid-cols-1 lg:grid-cols-2 gap-2">
+                            <div>
+                                <span>{invoiceDate.identification}</span>
+                            </div>
+                            <div>
+                                <span>{invoiceDate.customer}</span>
+                            </div>
+                        </div>
+                    </>
+                )}
+
                 <button className="exit-button" onClick={handleReturnBack}>
                     <IoMdExit />
                 </button>
