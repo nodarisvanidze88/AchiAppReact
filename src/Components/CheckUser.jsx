@@ -8,6 +8,7 @@ import { InvoiceContext } from './InvoiceContext';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Autocomplete, MenuItem } from '@mui/material';
+import CustomModal from './NewAddCustomer';
 
 const theme = createTheme({
     components: {
@@ -229,7 +230,12 @@ export default function CheckUser() {
                     className="checkUser-input user-input"
                 /> */}
             </form>
-            <AddNewCustomerModal
+            {/* <AddNewCustomerModal
+                isOpen={isModalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                refresh={GetAllUsers}
+            /> */}
+            <CustomModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}
                 refresh={GetAllUsers}

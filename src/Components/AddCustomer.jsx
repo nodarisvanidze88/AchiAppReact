@@ -20,6 +20,7 @@ export default function AddNewCustomerModal({ isOpen, onRequestClose, refresh })
     const [formError, setFormError] = useState({
         identification: "",
         customer_name: "",
+        customer_address: "",
     })
     const [isValidFiled, setValidField] = useState(true)
 
