@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { InvoiceContext } from './InvoiceContext';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { TextField } from '@mui/material';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, MenuItem } from '@mui/material';
 
 const theme = createTheme({
     components: {
@@ -22,14 +22,38 @@ const theme = createTheme({
         MuiInputBase: {
             styleOverrides: {
                 input: {
-                    '::placeholder': {
-                        color: 'red', // Placeholder text color
-                        fontSize: '1rem', // Placeholder text size
-                        fontStyle: 'italic', // Placeholder text style
-                    },
+                color:'#fff'
                 },
+                
             },
         },
+        MuiOutlinedInput:{
+            styleOverrides:{
+                notchedOutline:{
+                    border:"2px solid white"
+                },
+                root:{
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'blue', // Outline color on hover
+                    },
+                }
+
+            }
+        },
+        MuiAutocomplete:{
+            styleOverrides:{
+                popupIndicator:{
+                    color:'white'
+                },
+                clearIndicator: {
+                    color: 'white', // Clear button color
+                    '&:hover': {
+                        color: 'blue', // Clear button color on hover
+                    },
+                },
+            }
+        }
+
     },
 });
 export default function CheckUser() {
@@ -130,8 +154,12 @@ export default function CheckUser() {
                         ]}
                         getOptionLabel={(option) => option.customer_name || ''}
                         sx={{
-                            width: 600,
+                            display:'flex',
+                            width:'80%',
+                            minWidth:'150px',
                             marginBottom: '1rem',
+                        
+                            
                         }}
                         renderInput={(params) => (
                             <TextField {...params} label="მომხმარებელი" />
@@ -156,10 +184,26 @@ export default function CheckUser() {
                         }}
                         isOptionEqualToValue={(option, value) =>
                             option.id === value.id
-                        } // Ensure proper comparison
+                        } 
                     />
+                    <TextField label="ვაიზერი"  sx={{
+                            display:'flex',
+                            width:'80%',
+                            minWidth:'150px',
+                            marginBottom: '1rem',
+                        
+                            
+                        }}
+                        onChange={(e) => {
+                            for (let i = 0; i < user.length; i++) {
+                                if (user[i].user === e.target.value) {
+                                    setUserValue(e.target.value);
+                                    setSelectedID(user[i].id);
+                                }
+                            }
+                        }}/>
                 </ThemeProvider>
-                <datalist id="Customerlist">
+                {/* <datalist id="Customerlist">
                     <option value={'New'} />
                     {customer.map((item, i) => (
                         <option
@@ -167,7 +211,7 @@ export default function CheckUser() {
                             value={`${item.id} ${item.identification} ${item.customer_name}`}
                         />
                     ))}
-                </datalist>
+                </datalist> */}
                 {/* <Input
                     color="Highlight"
                     placeholder="სუპერვაიზერი"
