@@ -5,6 +5,33 @@ import { URLS } from './urls';
 import AddNewCustomerModal from './AddCustomer';
 import { useContext } from 'react';
 import { InvoiceContext } from './InvoiceContext';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { TextField } from '@mui/material';
+import { Autocomplete } from '@mui/material';
+
+const theme = createTheme({
+    components: {
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    color: 'gray', // Default placeholder color
+                    fontSize: '1rem', // Adjust font size
+                },
+            },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                    '::placeholder': {
+                        color: 'red', // Placeholder text color
+                        fontSize: '1rem', // Placeholder text size
+                        fontStyle: 'italic', // Placeholder text style
+                    },
+                },
+            },
+        },
+    },
+});
 export default function CheckUser() {
     const [user, setUser] = useState('');
     const [isModalOpen, setModalOpen] = useState(false);
@@ -86,35 +113,67 @@ export default function CheckUser() {
         customerName,
         setInvoiceDate,
     ]);
-    console.log(customerID);
+    console.log(customer);
     return (
         <div className="checkUser-div">
             <form className="checkUser-form">
-                <input
-                    list="Customerlist"
-                    onChange={(e) => {
-                        const splitedData = e.target.value.split(' ');
-                        const slicedData = splitedData.slice(2);
-                        setCustomerID(splitedData[0]);
-                        setCustomerName(slicedData.join(' '));
-                        setCustomerIdentifer(splitedData[1]);
-                    }}
-                    className="checkUser-input customer-input"
-                    placeholder="მომხმარებელი"
-                />
+                <ThemeProvider theme={theme}>
+                    <Autocomplete
+                        disablePortal
+                        options={[
+                            {
+                                id: 'New',
+                                customer_name: 'Add New Customer',
+                                identification: '',
+                            },
+                            ...customer,
+                        ]}
+                        getOptionLabel={(option) => option.customer_name || ''}
+                        sx={{
+                            width: 600,
+                            marginBottom: '1rem',
+                        }}
+                        renderInput={(params) => (
+                            <TextField {...params} label="მომხმარებელი" />
+                        )}
+                        onChange={(event, newValue) => {
+                            if (newValue) {
+                                // Set variables based on the selected customer
+                                setCustomerID(
+                                    newValue.id === 'New' ? '' : newValue.id
+                                );
+                                setCustomerName(newValue.customer_name);
+                                setCustomerIdentifer(newValue.identification);
+                                if (newValue.id === 'New') {
+                                    setModalOpen(true);
+                                }
+                            } else {
+                                // Reset variables if no customer is selected
+                                setCustomerID('');
+                                setCustomerName('');
+                                setCustomerIdentifer('');
+                            }
+                        }}
+                        isOptionEqualToValue={(option, value) =>
+                            option.id === value.id
+                        } // Ensure proper comparison
+                    />
+                </ThemeProvider>
                 <datalist id="Customerlist">
-                    <option>New</option>
-                    {customer.map((items, i) => (
-                        <option key={i}>
-                            {items.id}
-                            {` `}
-                            {items.identification}
-                            {` `}
-                            {items.customer_name}
-                        </option>
+                    <option value={'New'} />
+                    {customer.map((item, i) => (
+                        <option
+                            key={i}
+                            value={`${item.id} ${item.identification} ${item.customer_name}`}
+                        />
                     ))}
                 </datalist>
-                <input
+                {/* <Input
+                    color="Highlight"
+                    placeholder="სუპერვაიზერი"
+                    _placeholder={{ color: 'inherit' }}
+                    colorPalette="orange"
+                    size="sm"
                     onChange={(e) => {
                         for (let i = 0; i < user.length; i++) {
                             if (user[i].user === e.target.value) {
@@ -124,15 +183,7 @@ export default function CheckUser() {
                         }
                     }}
                     className="checkUser-input user-input"
-                    placeholder="სუპერვაიზერი"
-                />
-                <button
-                    onClick={() => {
-                        navigate('/orders');
-                    }}
-                >
-                    შეკვეთები
-                </button>
+                /> */}
             </form>
             <AddNewCustomerModal
                 isOpen={isModalOpen}

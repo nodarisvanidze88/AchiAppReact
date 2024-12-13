@@ -1,9 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-.checkUser-div{
+.checkUser-div {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -12,14 +12,14 @@
     background-color: #121212;
     flex-direction: column;
 }
-.checkUser-form{
+.checkUser-form {
     width: 80%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
-.checkUser-input{
+.checkUser-input {
     width: 50%;
     height: 30px;
     font-size: 20px;
@@ -27,14 +27,14 @@
     text-indent: 10px;
     text-align: center;
 }
-.user-input{
+.user-input {
     margin-top: 20px;
 }
-.modal-container{
+.modal-container {
     display: flex;
     flex-direction: column;
 }
-.modal-butons{
+.modal-butons {
     display: flex;
     flex-direction: row;
     align-self: self-end;
@@ -42,11 +42,10 @@
 .modal-yes-button {
     margin-right: 15px;
 }
-.add-modal-container{
+.add-modal-container {
     display: flex;
     flex-direction: column;
     height: 80%;
-
 }
 .field-containers {
     display: flex;
@@ -56,16 +55,17 @@
     height: 100%;
     flex-direction: column;
     margin-top: 15px;
-
 }
-.add-customer-modal-butons{
+.add-customer-modal-butons {
     display: flex;
     flex-direction: row;
     align-self: self-end;
     margin-top: 20px;
-
 }
-.newCustomerError{
+.newCustomerError {
     color: red;
     font-size: 10px;
+}
+datalist {
+    color: white;
 }

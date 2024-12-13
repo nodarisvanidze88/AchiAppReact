@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { InvoiceProvider } from './Components/InvoiceContext';
+import { StyledEngineProvider } from '@mui/material';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <InvoiceProvider>
-        <App />
-    </InvoiceProvider>
+    <StyledEngineProvider>
+        <InvoiceProvider>
+            <App />
+        </InvoiceProvider>
+    </StyledEngineProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -173,7 +173,7 @@ export default function DetailModal({
                             <b>კატეგორია</b>: {details.category_name}
                         </p>
                     </div>
-                    <div className="image-detail-container grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
+                    <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 image-detail-container">
                         <div className="my-container">
                             <img
                                 className="image-item"
@@ -181,7 +181,7 @@ export default function DetailModal({
                                 alt={details.id}
                             />
                         </div>
-                        <div className="detail-container text-2xl">
+                        <div className="detail-container">
                             <div className="detail-items">
                                 <span>
                                     ID:
