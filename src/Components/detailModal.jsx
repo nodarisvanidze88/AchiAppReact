@@ -202,19 +202,27 @@ export default function DetailModal({
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 image-detail-container">
                         <div className="my-container">
-                            <div className="back-forward-button">
+                            {/* <div className="back-forward-button">
                                 <MdArrowBackIos onClick={handlePreviouse} />
-                            </div>
+                            </div> */}
                             <div>
+                                {/* <div className="back-forward-button">
+                                    <MdArrowBackIos onClick={handlePreviouse} />
+                                </div> */}
                                 <img
                                     className="image-item"
                                     src={details.image_urel}
                                     alt={details.id}
                                 />
+                                <div className="back-forward-button">
+                                    <MdArrowBackIos onClick={handlePreviouse} />
+
+                                    <MdArrowForwardIos onClick={handleNext} />
+                                </div>
                             </div>
-                            <div className="back-forward-button">
+                            {/* <div className="back-forward-button">
                                 <MdArrowForwardIos onClick={handleNext} />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="detail-container">
                             <div className="detail-items">
