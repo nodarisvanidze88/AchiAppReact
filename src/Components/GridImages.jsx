@@ -45,13 +45,32 @@ export default function GridImages() {
     //     setData([]);
     //     fetchData(true);
     // }, [currentCategory]);
+    const fetchNewData = async (reset = false) => {
+        setIsLoading(true);
+        try {
+            const categoryParam =
+                currentCategory !== -1 ? `&category_id=${currentCategory}` : '';
+            const url = `${URLS[0].All_Items}?page=${page}${categoryParam}`;
+            const result = await GetData(url);
+            if (result && result.results) {
+                setData((prevData) =>
+                    reset ? result.results : [...prevData, ...result.results]
+                );
+                setHasMore(Boolean(result.next));
+            } else {
+                setHasMore(false);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
     useEffect(() => {
-        console.log('hello');
         setData([]);
     }, [currentCategory]);
+
     useEffect(() => {
-        console.log(`this is page ${page}`);
-        console.log(`this is current category ${currentCategory}`);
         const fetchData = async (reset = false) => {
             setIsLoading(true);
             try {
@@ -173,10 +192,14 @@ export default function GridImages() {
                     setDetailsOpen(false);
                     setDetails([]);
                 }}
+                modalData={data}
+                modalDataFunc={setData}
+                getNewData={fetchNewData}
+                currentPage={page}
+                setCurrentPage={setPage}
+                hasNext={hasMore}
                 details={details}
                 setdetail={setDetails}
-                selected={selectedItem}
-                selectfunc={setSelectedItem}
                 invoice={invoiceDate.invoiceNumber}
                 user_id={invoiceDate.user_id}
                 user={invoiceDate.user}

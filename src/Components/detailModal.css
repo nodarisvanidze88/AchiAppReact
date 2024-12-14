@@ -68,6 +68,7 @@
     justify-content: center;
     object-fit: contain;
     height: 100%;
+    gap: 5px;
 }
 
 .image-item {
@@ -117,4 +118,12 @@
     width: 150px;
     text-align: center;
     font-size: 20px;
+}
+.back-forward-button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-top: 200px;
+    color: white;
+    font-size: 30px;
 }

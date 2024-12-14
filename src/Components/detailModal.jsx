@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { URLS } from './urls';
 import { GetData } from './funcionality/getcategories';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import './detailModal.css';
+
 export default function DetailModal({
     isOpen,
     onRequestClose,
+    modalData,
+    modalDataFunc,
+    getNewData,
+    currentPage,
+    setCurrentPage,
+    hasNext,
     details,
     setdetail,
-    selected,
-    selectfunc,
     invoice,
     user_id,
+    user,
     customer_id,
 }) {
     const [ids, setIds] = useState([]);
@@ -20,6 +27,7 @@ export default function DetailModal({
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown visibility
     const [quantity, setQuantity] = useState(0);
     const [requestError, setError] = useState('');
+    const [itemID, setItemId] = useState(0);
     const selectedItem = {
         invoice: invoice,
         user: user_id,
@@ -27,6 +35,7 @@ export default function DetailModal({
         product_ID: details.id,
         quantity: quantity,
     };
+    console.log(itemID);
     useEffect(() => {
         setError('');
         const fetchIds = async () => {
@@ -49,12 +58,13 @@ export default function DetailModal({
     useEffect(() => {
         // Clear input and dropdown when modal opens
         if (isOpen) {
+            setItemId(modalData.findIndex((obj) => obj.id === details.id));
             setInputValue('');
             setFilteredIds(ids);
             setIsDropdownOpen(false);
             setQuantity(0);
         }
-    }, [isOpen, ids]);
+    }, [isOpen, ids, modalData]);
 
     const handleInputChange = (event) => {
         const value = event.target.value;
@@ -118,6 +128,23 @@ export default function DetailModal({
             console.error('Can not Create new data in server', error);
         }
     };
+    const handleNext = () => {
+        if (itemID < modalData.length - 1) {
+            setItemId((prev) => prev + 1);
+            setdetail(modalData[itemID + 1]);
+        }
+        if (itemID === modalData.length - 1 && hasNext) {
+            setCurrentPage((prev) => prev + 1);
+        }
+        setQuantity(0);
+    };
+    const handlePreviouse = () => {
+        if (itemID > 0) {
+            setItemId((prev) => prev - 1);
+            setdetail(modalData[itemID - 1]);
+        }
+        setQuantity(0);
+    };
     return (
         <Modal
             isOpen={isOpen}
@@ -175,11 +202,19 @@ export default function DetailModal({
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 image-detail-container">
                         <div className="my-container">
-                            <img
-                                className="image-item"
-                                src={details.image_urel}
-                                alt={details.id}
-                            />
+                            <div className="back-forward-button">
+                                <MdArrowBackIos onClick={handlePreviouse} />
+                            </div>
+                            <div>
+                                <img
+                                    className="image-item"
+                                    src={details.image_urel}
+                                    alt={details.id}
+                                />
+                            </div>
+                            <div className="back-forward-button">
+                                <MdArrowForwardIos onClick={handleNext} />
+                            </div>
                         </div>
                         <div className="detail-container">
                             <div className="detail-items">
@@ -188,6 +223,7 @@ export default function DetailModal({
                                     <b> {details.id}</b>
                                 </span>
                             </div>
+
                             <div className="detail-items">
                                 <span>
                                     რაოდენობა:
