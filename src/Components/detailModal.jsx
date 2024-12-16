@@ -28,16 +28,19 @@ export default function DetailModal({
     const [quantity, setQuantity] = useState(0);
     const [requestError, setError] = useState('');
     const [itemID, setItemId] = useState(0);
+    const [addStatus, setAddStatus] = useState(false);
     const selectedItem = {
         invoice: invoice,
         user: user_id,
         customer_info: customer_id,
         product_ID: details.id,
         quantity: quantity,
+        price: details.price,
     };
-    console.log(itemID);
+
     useEffect(() => {
         setError('');
+        setAddStatus(false);
         const fetchIds = async () => {
             try {
                 const data = await GetData(URLS[0].ids); // Await the Promise
@@ -121,22 +124,23 @@ export default function DetailModal({
             if (!sendData.ok) {
                 throw new Error('Server error');
             }
-
-            onRequestClose();
+            setAddStatus(true);
         } catch (error) {
             setError('Out of stock');
             console.error('Can not Create new data in server', error);
         }
     };
-    const handleNext = () => {
+    const handleNext = async () => {
         if (itemID < modalData.length - 1) {
             setItemId((prev) => prev + 1);
             setdetail(modalData[itemID + 1]);
         }
-        if (itemID === modalData.length - 1 && hasNext) {
-            setCurrentPage((prev) => prev + 1);
+        if (itemID === modalData.length - 2 && hasNext) {
+            await setCurrentPage((prev) => prev + 1);
+            setItemId((prev) => prev + 1);
         }
         setQuantity(0);
+        setAddStatus(false);
     };
     const handlePreviouse = () => {
         if (itemID > 0) {
@@ -144,6 +148,7 @@ export default function DetailModal({
             setdetail(modalData[itemID - 1]);
         }
         setQuantity(0);
+        setAddStatus(false);
     };
     return (
         <Modal
@@ -162,7 +167,6 @@ export default function DetailModal({
                     height: '80vh',
                     padding: 0,
                     margin: 'auto',
-                    // overflow: 'contain',
                 },
             }}
         >
@@ -202,13 +206,7 @@ export default function DetailModal({
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 image-detail-container">
                         <div className="my-container">
-                            {/* <div className="back-forward-button">
-                                <MdArrowBackIos onClick={handlePreviouse} />
-                            </div> */}
                             <div>
-                                {/* <div className="back-forward-button">
-                                    <MdArrowBackIos onClick={handlePreviouse} />
-                                </div> */}
                                 <img
                                     className="image-item"
                                     src={details.image_urel}
@@ -220,9 +218,6 @@ export default function DetailModal({
                                     <MdArrowForwardIos onClick={handleNext} />
                                 </div>
                             </div>
-                            {/* <div className="back-forward-button">
-                                <MdArrowForwardIos onClick={handleNext} />
-                            </div> */}
                         </div>
                         <div className="detail-container">
                             <div className="detail-items">
@@ -273,6 +268,11 @@ export default function DetailModal({
                                 >
                                     დამატება
                                 </button>
+                                {addStatus && (
+                                    <div>
+                                        <span>Added</span>
+                                    </div>
+                                )}
                                 {requestError && (
                                     <div>
                                         <span>{requestError}</span>
