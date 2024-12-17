@@ -117,14 +117,19 @@ export default function CheckUser() {
             selectdID !== ''
         ) {
             const invoiceNumber = generateInvoiceNumber();
-            setInvoiceDate({
+            const invoiceData = {
                 invoiceNumber,
                 customer_id: customerID,
                 identification: customerIdentifer,
                 customer: customerName,
                 user_id: selectdID,
                 user: userValue,
-            });
+            };
+
+            // Store in localStorage
+            localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+
+            setInvoiceDate(invoiceData);
             navigate(`/grid`);
         }
     }, [
@@ -138,7 +143,6 @@ export default function CheckUser() {
         customerName,
         setInvoiceDate,
     ]);
-    console.log(customer);
     return (
         <div className="checkUser-div">
             <form className="checkUser-form">
@@ -158,16 +162,13 @@ export default function CheckUser() {
                             display:'flex',
                             width:'80%',
                             minWidth:'150px',
-                            marginBottom: '1rem',
-                        
-                            
+                            marginBottom: '1rem',                            
                         }}
                         renderInput={(params) => (
                             <TextField {...params} label="მომხმარებელი" />
                         )}
                         onChange={(event, newValue) => {
                             if (newValue) {
-                                // Set variables based on the selected customer
                                 setCustomerID(
                                     newValue.id === 'New' ? '' : newValue.id
                                 );
@@ -177,7 +178,6 @@ export default function CheckUser() {
                                     setModalOpen(true);
                                 }
                             } else {
-                                // Reset variables if no customer is selected
                                 setCustomerID('');
                                 setCustomerName('');
                                 setCustomerIdentifer('');
@@ -191,9 +191,7 @@ export default function CheckUser() {
                             display:'flex',
                             width:'80%',
                             minWidth:'150px',
-                            marginBottom: '1rem',
-                        
-                            
+                            marginBottom: '1rem', 
                         }}
                         onChange={(e) => {
                             for (let i = 0; i < user.length; i++) {
@@ -204,37 +202,7 @@ export default function CheckUser() {
                             }
                         }}/>
                 </ThemeProvider>
-                {/* <datalist id="Customerlist">
-                    <option value={'New'} />
-                    {customer.map((item, i) => (
-                        <option
-                            key={i}
-                            value={`${item.id} ${item.identification} ${item.customer_name}`}
-                        />
-                    ))}
-                </datalist> */}
-                {/* <Input
-                    color="Highlight"
-                    placeholder="სუპერვაიზერი"
-                    _placeholder={{ color: 'inherit' }}
-                    colorPalette="orange"
-                    size="sm"
-                    onChange={(e) => {
-                        for (let i = 0; i < user.length; i++) {
-                            if (user[i].user === e.target.value) {
-                                setUserValue(e.target.value);
-                                setSelectedID(user[i].id);
-                            }
-                        }
-                    }}
-                    className="checkUser-input user-input"
-                /> */}
             </form>
-            {/* <AddNewCustomerModal
-                isOpen={isModalOpen}
-                onRequestClose={() => setModalOpen(false)}
-                refresh={GetAllUsers}
-            /> */}
             <CustomModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}

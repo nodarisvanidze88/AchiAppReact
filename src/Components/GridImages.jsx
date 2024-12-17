@@ -17,34 +17,22 @@ export default function GridImages() {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [details, setDetails] = useState([]);
     const [selectedItem, setSelectedItem] = useState('');
-    const { invoiceDate } = useContext(InvoiceContext);
+    const [invoiceData, setInvoiceData] = useState(null)
     const navigate = useNavigate();
-    // const fetchData = async (reset = false) => {
-    //     setIsLoading(true);
-    //     try {
-    //         const categoryParam =
-    //             currentCategory !== -1 ? `&category_id=${currentCategory}` : '';
-    //         const url = `${URLS[0].All_Items}?page=${page}${categoryParam}`;
-    //         const result = await GetData(url);
-    //         if (result && result.results) {
-    //             setData((prevData) =>
-    //                 reset ? result.results : [...prevData, ...result.results]
-    //             );
-    //             setHasMore(Boolean(result.next));
-    //         } else {
-    //             setHasMore(false);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
 
-    // useEffect(() => {
-    //     setData([]);
-    //     fetchData(true);
-    // }, [currentCategory]);
+    useEffect(() => {
+        const storedInvoice = localStorage.getItem('invoiceData');
+        if (storedInvoice) {
+            try {
+                const parsedData = JSON.parse(storedInvoice);
+                setInvoiceData(parsedData);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        } else {
+            console.warn('No data found in localStorage for invoiceData');
+        }
+    }, []);
     const fetchNewData = async (reset = false) => {
         setIsLoading(true);
         try {
@@ -102,10 +90,8 @@ export default function GridImages() {
     const handleScroll = useCallback(
         (e) => {
             const { scrollTop, scrollHeight, clientHeight } = e.target;
-            // if (isLoading || !hasMore) return;
-
             if (scrollTop + clientHeight >= scrollHeight - 5 && hasMore) {
-                setPage((prevPage) => prevPage + 1); // Load the next page
+                setPage((prevPage) => prevPage + 1);
             }
         },
         [hasMore]
@@ -147,7 +133,8 @@ export default function GridImages() {
                     <>
                         <div className="customer-info">
                             <div>
-                                <span>{invoiceDate.customer}</span>
+                                
+                                {invoiceData&&(<span>{invoiceData.customer}</span>)}
                             </div>
                         </div>
                     </>
@@ -186,25 +173,27 @@ export default function GridImages() {
                     </div>
                 )}{' '}
             </div>
-            <DetailModal
-                isOpen={detailsOpen}
-                onRequestClose={() => {
-                    setDetailsOpen(false);
-                    setDetails([]);
-                }}
-                modalData={data}
-                modalDataFunc={setData}
-                getNewData={fetchNewData}
-                currentPage={page}
-                setCurrentPage={setPage}
-                hasNext={hasMore}
-                details={details}
-                setdetail={setDetails}
-                invoice={invoiceDate.invoiceNumber}
-                user_id={invoiceDate.user_id}
-                user={invoiceDate.user}
-                customer_id={invoiceDate.customer_id}
-            />
+            {invoiceData && (
+    <DetailModal
+        isOpen={detailsOpen}
+        onRequestClose={() => {
+            setDetailsOpen(false);
+            setDetails([]);
+        }}
+        modalData={data}
+        modalDataFunc={setData}
+        getNewData={fetchNewData}
+        currentPage={page}
+        setCurrentPage={setPage}
+        hasNext={hasMore}
+        details={details}
+        setdetail={setDetails}
+        invoice={invoiceData.invoiceNumber}
+        user_id={invoiceData.user_id}
+        user={invoiceData.user}
+        customer_id={invoiceData.customer_id}
+    />
+)}
         </div>
     );
 }
