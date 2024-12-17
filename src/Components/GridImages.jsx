@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './GridImages.css';
 import { URLS } from './urls';
 import CategoryDropdown from './CategoryDropdown';
@@ -6,7 +6,6 @@ import { GetData } from './funcionality/getcategories';
 import DetailModal from './detailModal';
 import { IoMdExit } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { InvoiceContext } from './InvoiceContext';
 export default function GridImages() {
     const [data, setData] = useState([]); // Store fetched data
     const [page, setPage] = useState(1); // Current page number
@@ -106,7 +105,7 @@ export default function GridImages() {
         setDetails(item);
     };
     const handleCategoryChange = (category) => {
-        // setData([]);
+
         setCurrentCategory(parseInt(category, 10));
         setPage(1);
         setIsOpen(false);
@@ -115,6 +114,7 @@ export default function GridImages() {
         setSelectedItem(item);
     };
     const handleReturnBack = () => {
+        localStorage.removeItem('invoiceData');
         navigate('/');
     };
     return (
