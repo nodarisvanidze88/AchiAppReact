@@ -1,14 +1,14 @@
-export const COLUMNS = [
+export const INVOICE_TABLE = [
     {
-        Header: 'ID',
-        accessor: 'product_ID',
+        Header: 'Invoice',
+        accessor: 'invoice',
     },
     {
-        Header: 'დასახელება',
-        accessor: 'item_name',
+        Header: 'ჯამი',
+        accessor: 'get_total',
     },
     {
-        Header: 'რაოდენობა',
-        accessor: 'quantity',
+        Header: 'სტატუსი',
+        accessor: 'status',
     },
-]
+];

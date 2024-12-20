@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddCustomer from './Components/AddCustomer';
 import { UsersOrders } from './Components/UsersOrders';
 import GridImages from './Components/GridImages';
-
+import InvoiceList from './Components/InvoiceList';
 function App() {
     return (
         <div>
@@ -16,6 +16,7 @@ function App() {
                     <Route path="/newCustomer" element={<AddCustomer />} />
                     <Route path="/orders" element={<UsersOrders />} />
                     <Route path="/grid" element={<GridImages />} />
+                    <Route path="/invoiceList" element={<InvoiceList />} />
                 </Routes>
             </BrowserRouter>
         </div>

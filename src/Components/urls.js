@@ -8,5 +8,6 @@ export const URLS = [
         Category_list: 'https://achiapp.pythonanywhere.com/fi/category_list',
         ids: 'https://achiapp.pythonanywhere.com/fi/get_product_ids',
         oneItem: 'https://achiapp.pythonanywhere.com/fi/get_product_by_id',
+        invoices: 'http://127.0.0.1:8000/fi/get_invoice_list',
     },
 ];
