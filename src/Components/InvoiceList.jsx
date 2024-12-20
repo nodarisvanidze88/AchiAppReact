@@ -33,9 +33,14 @@ export default function InvoiceList() {
         };
         fetchInvoiceInfo();
     }, [customerInfo]);
-    console.log(invoiceInfo);
+
 
     return (
+        <>{
+            customerInfo &&
+            <div>{customerInfo.customer}</div>
+        }
+        
         <div className="item_table">
             {invoiceInfo.length > 0 ? (
                 <table
@@ -78,5 +83,6 @@ export default function InvoiceList() {
                 <p>No Data</p>
             )}
         </div>
+        </>
     );
 }

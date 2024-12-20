@@ -117,6 +117,9 @@ export default function GridImages() {
         localStorage.removeItem('invoiceData');
         navigate('/');
     };
+    const goToInvoice=()=>{
+        navigate('/invoiceList')
+    }
     return (
         <div className="main-container">
             <div className="burger-menu">
@@ -134,7 +137,7 @@ export default function GridImages() {
                         <div className="customer-info">
                             <div>
                                 
-                                {invoiceData&&(<span>{invoiceData.customer}</span>)}
+                                {invoiceData&&(<button onClick={goToInvoice}>{invoiceData.customer}</button>)}
                             </div>
                         </div>
                     </>
