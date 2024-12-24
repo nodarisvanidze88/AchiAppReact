@@ -65,6 +65,9 @@ export default function InvoiceList() {
     const toggleDropdown = () => {
         navigate('/grid');
     };
+    const handleNavigate = (value) => {
+        navigate(`/invoice-details/${value}`);
+    };
     return (
         <div className="invoice-list-container">
             {customerInfo && (
@@ -157,6 +160,24 @@ export default function InvoiceList() {
                                         className="table-quantity"
                                     >
                                         {row.cells.map((cell, index) => {
+                                            if (index === 0) {
+                                                // Add button in the first column
+                                                return (
+                                                    <td
+                                                        {...cell.getCellProps()}
+                                                    >
+                                                        <button
+                                                            onClick={() =>
+                                                                handleNavigate(
+                                                                    cell.value
+                                                                )
+                                                            }
+                                                        >
+                                                            {cell.value}
+                                                        </button>
+                                                    </td>
+                                                );
+                                            }
                                             if (
                                                 index ===
                                                 row.cells.length - 1

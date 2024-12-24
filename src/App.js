@@ -5,6 +5,7 @@ import AddCustomer from './Components/AddCustomer';
 import { UsersOrders } from './Components/UsersOrders';
 import GridImages from './Components/GridImages';
 import InvoiceList from './Components/InvoiceList';
+import InvoiceDetails from './Components/invoiceDetails';
 function App() {
     return (
         <div>
@@ -17,6 +18,10 @@ function App() {
                     <Route path="/orders" element={<UsersOrders />} />
                     <Route path="/grid" element={<GridImages />} />
                     <Route path="/invoiceList" element={<InvoiceList />} />
+                    <Route
+                        path="/invoice-details/:invoiceNumber"
+                        element={<InvoiceDetails />}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>

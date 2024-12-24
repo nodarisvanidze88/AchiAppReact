@@ -9,5 +9,7 @@ export const URLS = [
         ids: 'https://achiapp.pythonanywhere.com/fi/get_product_ids',
         oneItem: 'https://achiapp.pythonanywhere.com/fi/get_product_by_id',
         invoices: 'https://achiapp.pythonanywhere.com/fi/get_invoice_list',
+        invoice_items:
+            'https://achiapp.pythonanywhere.com/fi/get_products_by_invoice',
     },
 ];
