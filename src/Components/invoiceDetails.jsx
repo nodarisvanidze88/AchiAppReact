@@ -58,6 +58,19 @@ export default function InvoiceDetails() {
                                         className="table-quantity"
                                     >
                                         {row.cells.map((cell, index) => {
+                                            if (cell.column.id === 'quantity') {
+                                                return (
+                                                    <td
+                                                        {...cell.getCellProps()}
+                                                    >
+                                                        <div className='action-buttons' style={{display:'flex', justifyContent:'center', gap:'10px'}}>
+                                                        <button className='action-button'>-</button>
+                                                        <input type="text" value={cell.value} style={{width:'20%', color:'black', textAlign:'center'}} />
+                                                        <button className='action-button'>+</button>
+                                                        </div>
+                                                    </td>
+                                                )
+                                            }
                                             if (index === 0) {
                                                 // Add button in the first column
                                                 return (
@@ -115,11 +128,12 @@ export default function InvoiceDetails() {
                                             );
                                         })}
                                         <td>
-                                            {row.original.status === 'Open' && (
+                                            <div className='action-buttons'>
                                                 <button className="action-button">
-                                                    Action
+                                                    Save
                                                 </button>
-                                            )}
+                                                <button className='action-button'>Delete</button>
+                                                </div>
                                         </td>
                                     </tr>
                                 );
