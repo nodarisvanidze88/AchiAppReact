@@ -36,6 +36,7 @@ export default function DetailModal({
         product_ID: details.id,
         quantity: quantity,
         price: details.price,
+        total: details.price * quantity,
     };
 
     useEffect(() => {
@@ -114,7 +115,7 @@ export default function DetailModal({
     const handelSave = async () => {
         setError('');
         try {
-            const sendData = await fetch(URLS[0].Add_collection_data, {
+            const sendData = await fetch(URLS[0].invoice_items, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

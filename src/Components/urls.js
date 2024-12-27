@@ -1,7 +1,5 @@
 export const URLS = [
     {
-        Add_collection_data:
-            'https://achiapp.pythonanywhere.com/fi/add_collection_data',
         GetUsers: 'https://achiapp.pythonanywhere.com/fi/getusers',
         All_Items: 'https://achiapp.pythonanywhere.com/fi/allItems',
         All_Customers: 'https://achiapp.pythonanywhere.com/fi/customers/',
@@ -10,6 +8,6 @@ export const URLS = [
         oneItem: 'https://achiapp.pythonanywhere.com/fi/get_product_by_id',
         invoices: 'https://achiapp.pythonanywhere.com/fi/get_invoice_list',
         invoice_items:
-            'https://achiapp.pythonanywhere.com/fi/get_products_by_invoice',
+            'https://achiapp.pythonanywhere.com/fi/collected_products',
     },
 ];

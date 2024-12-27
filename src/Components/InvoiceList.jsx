@@ -65,8 +65,8 @@ export default function InvoiceList() {
     const toggleDropdown = () => {
         navigate('/grid');
     };
-    const handleNavigate = (value) => {
-        navigate(`/invoice-details/${value}`);
+    const handleNavigate = (value, status) => {
+        navigate(`/invoice-details/${value}`,{ state: { status } });
     };
     return (
         <div className="invoice-list-container">
@@ -169,7 +169,7 @@ export default function InvoiceList() {
                                                         <button
                                                             onClick={() =>
                                                                 handleNavigate(
-                                                                    cell.value
+                                                                    cell.value, cell.row.original.status
                                                                 )
                                                             }
                                                         >
