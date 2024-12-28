@@ -166,7 +166,7 @@ export default function InvoiceList() {
                                                     <td
                                                         {...cell.getCellProps()}
                                                     >
-                                                        <button
+                                                        <button className='action-button'
                                                             onClick={() =>
                                                                 handleNavigate(
                                                                     cell.value, cell.row.original.status

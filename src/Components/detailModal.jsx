@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { URLS } from './urls';
 import { GetData } from './funcionality/getcategories';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import { useSwipeable } from 'react-swipeable';
 import './detailModal.css';
 
 export default function DetailModal({
@@ -151,6 +152,12 @@ export default function DetailModal({
         setQuantity(0);
         setAddStatus(false);
     };
+    const handlers = useSwipeable({
+        onSwipedLeft:()=>handleNext(),
+        onSwipedRight:()=>handlePreviouse(),
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true,
+    });
     return (
         <Modal
             isOpen={isOpen}
@@ -171,7 +178,7 @@ export default function DetailModal({
                 },
             }}
         >
-            <div className="detail-modal-container">
+            <div  {...handlers} className="detail-modal-container">
                 <div className="header-input">
                     <input
                         className="search-input"
@@ -206,7 +213,7 @@ export default function DetailModal({
                         </p>
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 image-detail-container">
-                        <div className="my-container">
+                        <div className="my-container" >
                             <div>
                                 <img
                                     className="image-item"
