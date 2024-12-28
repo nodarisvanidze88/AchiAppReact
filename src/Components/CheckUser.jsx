@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Autocomplete, MenuItem } from '@mui/material';
 import CustomModal from './NewAddCustomer';
+import { use } from 'react';
 
 const theme = createTheme({
     components: {
@@ -66,6 +67,7 @@ export default function CheckUser() {
     const [customerIdentifer, setCustomerIdentifer] = useState('');
     const [userValue, setUserValue] = useState('');
     const [selectdID, setSelectedID] = useState('');
+    const [isVizer, setIsVizer] = useState(false);
     const { setInvoiceDate } = useContext(InvoiceContext);
     const navigate = useNavigate();
 
@@ -104,6 +106,7 @@ export default function CheckUser() {
         ).padStart(2, '0')}${String(now.getMilliseconds()).padStart(3, '0')}`;
     };
     useEffect(() => {
+        console.log(user);
         if (customerID === 'New') {
             setModalOpen(true);
             setCustomerID('');
@@ -126,11 +129,20 @@ export default function CheckUser() {
                 user: userValue,
             };
 
-            // Store in localStorage
-            localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
-
-            setInvoiceDate(invoiceData);
-            navigate(`/grid`);
+            user.forEach((item)=>{
+                if(item.id === selectdID && item.status==='Valid'){
+                    localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+                    setInvoiceDate(invoiceData);
+                    try{
+                        navigate(`/grid`);
+                    }catch(error){
+                        console.error('Error navigating:',error);
+                        if (localStorage.getItem('invoiceData')) {
+                            localStorage.removeItem('invoiceData');
+                        }   
+                    }
+                }
+            })
         }
     }, [
         selectdID,
@@ -150,11 +162,11 @@ export default function CheckUser() {
                     <Autocomplete
                         disablePortal
                         options={[
-                            {
+                            ...(isVizer ? [{
                                 id: 'New',
                                 customer_name: 'Add New Customer',
                                 identification: '',
-                            },
+                            }] : []),
                             ...customer,
                         ]}
                         getOptionLabel={(option) => option.customer_name || ''}
@@ -187,7 +199,7 @@ export default function CheckUser() {
                             option.id === value.id
                         } 
                     />
-                    <TextField label="ვაიზერი"  sx={{
+                    <TextField label="Access"  sx={{
                             display:'flex',
                             width:'80%',
                             minWidth:'150px',
@@ -198,6 +210,7 @@ export default function CheckUser() {
                                 if (user[i].user === e.target.value) {
                                     setUserValue(e.target.value);
                                     setSelectedID(user[i].id);
+                                    setIsVizer(user[i].vizer);
                                 }
                             }
                         }}/>

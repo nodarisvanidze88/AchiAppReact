@@ -29,7 +29,7 @@ export default function GridImages() {
                 console.error('Error parsing JSON:', error);
             }
         } else {
-            console.warn('No data found in localStorage for invoiceData');
+            navigate('/');
         }
     }, []);
     const fetchNewData = async (reset = false) => {
