@@ -158,6 +158,22 @@ export default function DetailModal({
         preventDefaultTouchmoveEvent: true,
         trackMouse: true,
     });
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowRight') {
+                handleNext();
+            } else if (event.key === 'ArrowLeft') {
+                handlePreviouse();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [itemID, modalData]);
     return (
         <Modal
             isOpen={isOpen}
