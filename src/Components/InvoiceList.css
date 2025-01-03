@@ -1,13 +1,18 @@
 body {
-    background-color: #121212;
+    background-color: #37392E;
+}
+.customer-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #EEE5E5;
 }
 .status-select {
-    color: black;
+    color: #37392E;
 }
 .invoice-list-page {
-    background-color: #121212;
+    background-color: #37392E;
     width: 80%;
-    color: white;
+    color: #EEE5E5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,7 +39,7 @@ body {
     align-items: center;
 }
 .filter-button {
-    border: 2px solid #007bff;
+    border: 2px solid #28AFB0;
     padding: 5px;
     width: max-content;
     border-radius: 5px;
@@ -42,7 +47,7 @@ body {
     margin-bottom: 10px;
 }
 .action-button {
-    border: 2px solid #007bff;
+    border: 2px solid #28AFB0;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;

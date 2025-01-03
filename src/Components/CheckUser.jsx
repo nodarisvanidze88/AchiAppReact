@@ -2,21 +2,20 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CheckUser.css';
 import { URLS } from './urls';
-import AddNewCustomerModal from './AddCustomer';
 import { useContext } from 'react';
 import { InvoiceContext } from './InvoiceContext';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { TextField } from '@mui/material';
-import { Autocomplete, MenuItem } from '@mui/material';
+import { Autocomplete} from '@mui/material';
 import CustomModal from './NewAddCustomer';
-import { use } from 'react';
+
 
 const theme = createTheme({
     components: {
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: 'gray', // Default placeholder color
+                    color: '#28AFB0', // Default placeholder color
                     fontSize: '1rem', // Adjust font size
                 },
             },
@@ -24,7 +23,8 @@ const theme = createTheme({
         MuiInputBase: {
             styleOverrides: {
                 input: {
-                color:'#fff'
+                color:'#28AFB0',
+                backgroundColor:'#37392E'
                 },
                 
             },
@@ -32,26 +32,32 @@ const theme = createTheme({
         MuiOutlinedInput:{
             styleOverrides:{
                 notchedOutline:{
-                    border:"2px solid white"
+                    border:"2px solid #EEE5E5"
                 },
                 root:{
                     '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'blue', // Outline color on hover
+                        borderColor: '#28AFB0', // Outline color on hover
                     },
-                }
+                },
+                inputRoot:{
+                    color:'#37392E',
+                },
 
             }
         },
         MuiAutocomplete:{
             styleOverrides:{
                 popupIndicator:{
-                    color:'white'
+                    color:'#28AFB0'
                 },
                 clearIndicator: {
-                    color: 'white', // Clear button color
+                    color: '#EEE5E5', // Clear button color
                     '&:hover': {
-                        color: 'blue', // Clear button color on hover
+                        color: '#28AFB0', // Clear button color on hover
                     },
+                },
+                inputRoot:{
+                    color:'#37392E',
                 },
             }
         }
@@ -203,7 +209,8 @@ export default function CheckUser() {
                             display:'flex',
                             width:'80%',
                             minWidth:'150px',
-                            marginBottom: '1rem', 
+                            marginBottom: '1rem',
+                            backgroundColor:'#37392E',
                         }}
                         onChange={(e) => {
                             for (let i = 0; i < user.length; i++) {

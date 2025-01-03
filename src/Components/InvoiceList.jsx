@@ -72,7 +72,7 @@ export default function InvoiceList() {
         <div className="invoice-list-container">
             {customerInfo && (
                 <div className="invoice-list-page">
-                    <div>{customerInfo.customer}</div>
+                    <div className='customer-name'>{customerInfo.customer}</div>
                     <div className="filter-buttons">
                         <div>
                             <button

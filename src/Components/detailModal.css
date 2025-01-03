@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 .search-input {
     width: 97%;
@@ -24,30 +25,31 @@
     height: 35px;
     text-align: left;
     font-weight: bold;
+    background-color: #EEE5E5;
 }
 .image-item {
     border-radius: 10px;
 }
 .dropdown {
-    background-color: white;
+    background-color: #EEE5E5;
     width: 100%;
 }
 .dropdown-item:hover {
-    color: white;
-    background-color: blue;
+    color: #EEE5E5;
+    background-color: #28AFB0;
 }
 .detail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 20px;
-    color: rgb(255, 255, 255);
+    color: #EEE5E5;
 }
 .description-category {
     margin-top: 10px;
     min-height: 30px;
-    background-color: rgb(64, 20, 184);
-    color: white;
+    background-color: #DDCECD;
+    color: black;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -89,7 +91,7 @@
 .plus-btn {
     width: 35px;
     text-align: center;
-    background-color: rgb(64, 20, 184);
+    background-color: #19647E;
     border-radius: 5px;
     font-size: 20px;
     font-weight: bold;
@@ -112,7 +114,7 @@
     margin-top: 10px;
 }
 .save-btn {
-    background-color: rgb(64, 20, 184);
+    background-color: #19647E;
     padding: 5px;
     border-radius: 5px;
     width: 150px;
@@ -124,6 +126,6 @@
     justify-content: center;
     align-content: center;
     gap: 20px;
-    color: white;
+    color: #EEE5E5;
     font-size: 30px;
 }

@@ -18,7 +18,7 @@ export default function ImageModal({
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 content: {
-                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    backgroundColor: 'rgba(55, 57, 46, 0.9)',
                     border: null,
                     borderRadius: '10px',
                     width: '80vw',
